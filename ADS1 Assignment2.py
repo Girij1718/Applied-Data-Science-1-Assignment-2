@@ -108,22 +108,38 @@ numeric_data = data.select_dtypes(include=['number', 'float64', 'int64'])
 # Compute correlation matrix for numeric columns only
 corr_matrix = numeric_data.corr()
 
-# Plot heatmap
-sns.heatmap(
-    corr_matrix, 
-    annot=True, 
-    fmt=".2f", 
-    annot_kws={"size": 10, "color": "black"}, 
-    cmap="coolwarm",
-     center=0, 
-    linewidths=0.5, 
-    linecolor='black', 
-    cbar_kws={'shrink': 0.8}
-)
-plt.title("Correlation Heatmap", fontsize=16)
-plt.xticks(rotation=45)
-plt.yticks(rotation=0)
-plt.show()
+# Function
+def plot_correlation_heatmap(data):
+ 
+    # Select only numeric columns
+    numeric_data = data.select_dtypes(include=['number', 'float64', 'int64'])
+
+    # Compute correlation matrix for numeric columns only
+    corr_matrix = numeric_data.corr()
+
+    # Plot heatmap
+    sns.heatmap(
+        corr_matrix, 
+        annot=True, 
+        fmt=".2f", 
+        annot_kws={"size": 10, "color": "black"}, 
+        cmap="coolwarm",
+        center=0, 
+        linewidths=0.5, 
+        linecolor='black', 
+        cbar_kws={'shrink': 0.8}
+    )
+    plt.title("Correlation Heatmap", fontsize=16)
+    plt.xticks(rotation=45)
+    plt.yticks(rotation=0)
+    plt.show()
+
+# Replace 'file_path' with the path to your CSV file
+file_path = r"C:\Users\girij\Downloads\Clustering\Adidas Vs Nike.csv"
+data = pd.read_csv(file_path)
+
+# Call the function to plot the heatmap
+plot_correlation_heatmap(data)
 
 
 
