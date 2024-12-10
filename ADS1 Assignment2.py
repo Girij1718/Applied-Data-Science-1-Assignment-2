@@ -1,4 +1,11 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
+
+
 
 # Load the dataset
 file_path = r"C:\Users\girij\Downloads\Clustering\Adidas Vs Nike.csv"
@@ -13,15 +20,12 @@ data.isnull().sum()
 # Drop rows with missing values (or impute if necessary)
 data = data.dropna()  # Alternatively, use data.fillna() for imputation
 
-from sklearn.preprocessing import MinMaxScaler
 
 # Normalize the numerical columns
 scaler = MinMaxScaler()
 numerical_columns = data.select_dtypes(include=['float64', 'int64']).columns
 data[numerical_columns] = scaler.fit_transform(data[numerical_columns])
 
-import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans
 
 # Elbow Method
 distortions = []
@@ -37,7 +41,6 @@ plt.xlabel("Number of Clusters")
 plt.ylabel("Distortion")
 plt.show()
 
-from sklearn.metrics import silhouette_score
 
 # Let's assume the optimal number of clusters is 3
 optimal_k = 3
@@ -61,8 +64,6 @@ plt.xlabel("Discount")
 plt.ylabel("Frequency")
 plt.show()
 
-import seaborn as sns
-import matplotlib.pyplot as plt
 
 # Select only numeric columns
 numeric_data = data.select_dtypes(include=['number', 'float64', 'int64'])
