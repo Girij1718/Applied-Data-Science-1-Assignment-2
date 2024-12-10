@@ -4,7 +4,7 @@ import seaborn as sns
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
-
+from sklearn.linear_model import LinearRegression
 
 
 # Load the dataset
@@ -51,12 +51,42 @@ clusters = kmeans.fit_predict(data[numerical_columns])
 silhouette_avg = silhouette_score(data[numerical_columns], clusters)
 print(f"Silhouette Score for {optimal_k} clusters: {silhouette_avg}")
 
-# Visualize the clusters
-plt.scatter(data[numerical_columns[0]], data[numerical_columns[1]], c=clusters, cmap='viridis')
-plt.title("K-Means Clustering")
-plt.xlabel('Listing_Price')
-plt.ylabel('Sale_Price')
+
+# Load the dataset
+file_path = r"C:\Users\girij\Downloads\Clustering\Adidas Vs Nike.csv"
+data = pd.read_csv(file_path)
+
+# Strip any extra spaces from column names
+data.columns = data.columns.str.strip()
+
+# Print the cleaned column names to check
+print(data.columns)
+
+# Adjust the column names here based on the output above
+x = data['Listing Price'].values.reshape(-1, 1)  # Independent variable (replace with actual column name)
+y = data['Sale Price'].values  # Dependent variable (replace with actual column name)
+
+# Create a linear regression model
+model = LinearRegression()
+
+# Fit the model to the data
+model.fit(x, y)
+
+# Make predictions using the model
+y_pred = model.predict(x)
+
+# Plotting the scatter plot and regression line
+plt.scatter(x, y, color='blue', label='Data points')
+plt.plot(x, y_pred, color='red', label='Regression line')
+plt.title('Linear Regression: Listing Price vs Sale Price')
+plt.xlabel('Adidas')  # Adjust label based on the column
+plt.ylabel('Nike')  # Adjust label based on the column
+plt.legend()
 plt.show()
+
+# Display the regression coefficients (optional)
+print("Slope:", model.coef_)
+print("Intercept:", model.intercept_)
 
 
 def plot_histogram(data, column_name, bins=20, color='blue', alpha=0.7):
