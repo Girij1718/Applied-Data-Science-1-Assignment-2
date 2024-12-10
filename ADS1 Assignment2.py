@@ -58,11 +58,18 @@ plt.xlabel('Listing_Price')
 plt.ylabel('Sale_Price')
 plt.show()
 
-plt.hist(data['Sale Price'], bins=20, color='blue', alpha=0.7)
-plt.title("Sales Distribution")
-plt.xlabel("Discount")
-plt.ylabel("Frequency")
-plt.show()
+
+def plot_histogram(data, column_name, bins=20, color='blue', alpha=0.7):
+  
+    plt.hist(data[column_name], bins=bins, color=color, alpha=alpha)
+    plt.title(f"Distribution of {column_name}")
+    plt.xlabel("Value")
+    plt.ylabel("Frequency")
+    plt.show()
+
+file_path = r"C:\Users\girij\Downloads\Clustering\Adidas Vs Nike.csv"
+data = pd.read_csv(file_path)
+plot_histogram(data, 'Sale Price', bins=20, color='blue', alpha=0.7)
 
 
 # Select only numeric columns
